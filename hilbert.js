@@ -6,8 +6,8 @@ let img; // Variable to hold the image
 let counter = 0; // Counter for drawing the curve incrementally
 
 function preload() {
-  // Load your black and white image
-  img = loadImage('black.png');
+  // Load your image
+  img = loadImage('black_beige.png');
 }
 
 function setup() {
@@ -50,7 +50,7 @@ function draw() {
   
   // Increment counter
   if (counter < path.length) {
-    counter += 500;
+    counter += 700;
   }
 }
 
