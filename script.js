@@ -1,6 +1,28 @@
 var maxLength = calculateMaxAllowedChars();
 var key;
 
+window.addEventListener('DOMContentLoaded', (event) => {
+    const overlay = document.createElement('div');
+    overlay.classList.add('overlay');
+    const overlayText = document.createElement('div');
+    overlayText.classList.add('overlay-text');
+    overlayText.textContent = 'landscape mode is recommended';
+    overlay.appendChild(overlayText);
+    document.body.appendChild(overlay);
+  
+    const checkWindowSize = () => {
+      if (window.innerWidth < 768) {
+        overlay.style.display = 'flex';
+      } else {
+        overlay.style.display = 'none';
+      }
+    };
+  
+    window.addEventListener('resize', checkWindowSize);
+    // Call checkWindowSize immediately after adding the event listener
+    checkWindowSize();
+  });  
+
 function calculateMaxAllowedChars() {
     const fontSize = window.innerHeight / 6;
     const maxHeight = window.innerHeight;
