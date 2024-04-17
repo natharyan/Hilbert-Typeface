@@ -35,6 +35,20 @@ input[type="submit"] {
   margin-top: 5px;
 }
 
+input[type="color"] {
+  appearance: none;
+  width: 30px;
+  height: 30px;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+input[type="color"]::-webkit-color-swatch {
+  border: none;
+  border-radius: 50%;
+}
+
 input[type="submit"] {
   background-color: #000000;
   border: none;
