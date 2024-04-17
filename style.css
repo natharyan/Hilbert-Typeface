@@ -10,9 +10,8 @@ canvas {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: rgba(164, 164, 164, 0.732);
+  background-color: rgba(211, 211, 211, 0.896);
   padding: 10px 80px;
-  border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   z-index: 1;
   font-family: 'Space Mono', monospace;
@@ -20,13 +19,14 @@ canvas {
 }
 label {
   font-size: 0.8em;
+  font-weight: bold;
 }
 #form-card h3 {
   margin-bottom: 10px;
 }
 textarea {
-  width: calc(100vh/6);
-  height: calc(100vh/6);
+  width: calc(100vh/6.5);
+  height: calc(100vh/6.5);
   resize: none;
 }
 #font-input{
@@ -53,4 +53,8 @@ input[type="submit"] {
   border-radius: 2px;
   transition: background-color 0.3s;
   font-family: 'Space Mono', monospace;
+}
+#char-count-message{
+  font-size: 0.7em;
+  font-weight: bold;
 }

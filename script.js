@@ -1,19 +1,43 @@
-// if (fileName) {
-//   // Call hilbert_render.js with the new filename
-//   hilbertRender(fileName);
-// } else {
-//   console.error('Failed to create image');
-// }
+var maxLength = calculateMaxAllowedChars();
+var key;
 
+function calculateMaxAllowedChars() {
+    const fontSize = window.innerHeight / 6;
+    const maxHeight = window.innerHeight;
+    const rows = 5;
+    const charsPerRow = 10;
+    const totalChars = rows * charsPerRow;
+    return totalChars;
+}
+
+function updateCharCount(event) {
+    const contentInput = event.target;
+    const currentLength = contentInput.value.length;
+    const remainingChars = maxLength - currentLength;
+    const charCountMessage = document.getElementById('char-count-message');
+
+    if (remainingChars >= 0) {
+        charCountMessage.textContent = `${remainingChars} characters remaining`;
+        charCountMessage.classList.remove('exceeded');
+    } else {
+        charCountMessage.textContent = `Exceeded by ${Math.abs(remainingChars)} characters`;
+        charCountMessage.classList.add('exceeded');
+    }
+}
+
+window.onload = () => {
+    const contentInput = document.getElementById('content');
+    contentInput.addEventListener('input', updateCharCount);
+    updateCharCount({ target: contentInput });
+};
 
 async function handleSubmit(event) {
     event.preventDefault();
-    
     const content = document.getElementById('content').value;
     const fontColor = document.getElementById('fontcolor').value;
     const bgColor = document.getElementById('bgcolor').value;
-    const fileName = await createmyImage(content, fontColor, bgColor);
-    
+    await createmyImage(content, fontColor, bgColor);
+    displaySavedImage();
 }
 
 
@@ -29,7 +53,7 @@ async function createmyImage(content, fontColor, bgColor) {
         ctx.fillStyle = bgColor;
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-        const fontSize = 70;
+        const fontSize = canvas.width/6;
         const fontFamily = 'hilbertfont-Regular';
 
         const font = new FontFace('hilbertfont-Regular', `url('./hilbertfont-Regular.ttf')`);
@@ -40,7 +64,7 @@ async function createmyImage(content, fontColor, bgColor) {
             ctx.fillStyle = fontColor;
             ctx.font = `${fontSize}px ${fontFamily}`;
             const maxWidth = canvas.width - 40;
-            let y = fontSize + 40;
+            let y = fontSize + 5;
             let words = content.split(' ');
             let line = '';
             for (let i = 0; i < words.length; i++) {
@@ -56,21 +80,27 @@ async function createmyImage(content, fontColor, bgColor) {
             }
             ctx.fillText(line, 20, y);
 
-            const img = canvas.toDataURL('image/png');
-
-            const fileName = 'hilbert_font_' + Date.now() + '.png';
-            const path = './images/' + fileName;
-            const link = document.createElement('a');
-            link.href = img;
-            link.download = fileName;
-            link.style.display = 'none';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-
-            resolve(fileName);
+            const imgData = canvas.toDataURL('image/png');
+            key = 'hilbertImage';
+            // Save the image data to local storage
+            localStorage.setItem(key, imgData);
+            
+            resolve();
         }).catch((error) => {
             console.error('Failed to load font:', error);
+            reject(error);
         });
     });
+}
+
+function displaySavedImage() {
+    const imgData = localStorage.getItem(key);
+    if (imgData) {
+        const renderimg = new Event('render');
+        document.dispatchEvent(renderimg);
+        const formcard = document.getElementById('form-card');
+        formcard.remove();
+    } else {
+        console.error('No image found in local storage.');
+    }
 }

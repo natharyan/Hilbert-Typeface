@@ -8,24 +8,27 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    <title>Hilbert-Font</title>
 
   </head>
   <body style="font-family: 'Space Mono', monospace;">
     <main>
       <div id="form-card">
-        <h3>Hilbert Font</h3>
+        <h3>Hilbert-Font</h3>
         <form id="font-input" onsubmit="handleSubmit(event)">
-          <label for="content">Type something funky:</label>
-          <textarea id="content" name="content"></textarea><br>
+          <label for="content">Type something here:</label>
+          <input id="content" name="content"></input><br>
+          <span id="char-count-message"></span><br>
           <label for="fontcolor">Font Color:</label>
           <input type="color" id="fontcolor" name="fontcolor">
           <label for="bgcolor">Background Color:</label>
           <input type="color" id="bgcolor" name="bgcolor"><br>
-          <input type="submit" value="Submit">
+          <input type="submit" value="Render">
       </form>
       </div>
     </main>
     <script src="hilbert.js"></script>
     <script src="script.js"></script>
+    
   </body>
 </html>
