@@ -19,7 +19,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
     };
   
     window.addEventListener('resize', checkWindowSize);
-    // Call checkWindowSize immediately after adding the event listener
+    window.addEventListener('orientationchange', checkWindowSize); // Listen for orientation changes
     checkWindowSize();
   });  
 
