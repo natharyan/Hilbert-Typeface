@@ -58,7 +58,7 @@ document.getElementById('black-button').addEventListener('click', function() {
     popoverContainer.appendChild(closeButton);
     
     var pdfViewer = document.createElement('iframe');
-    pdfViewer.src = 'Aryan_Nath_Resume_1_copy.pdf';
+    pdfViewer.src = 'Aryan_Nath-Writeup.pdf';
     pdfViewer.style.width = '100%';
     pdfViewer.style.height = '600px';
     popoverContainer.appendChild(pdfViewer);
@@ -91,7 +91,8 @@ async function createmyImage(content, fontColor, bgColor) {
         ctx.fillStyle = bgColor;
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-        const fontSize = canvas.width/6;
+        const initialFontSize = canvas.width / 6; // Initial font size
+        let fontSize = initialFontSize; // Adjusted font size
         const fontFamily = 'hilbertfont-Regular';
 
         const font = new FontFace('hilbertfont-Regular', `url('./hilbertfont-Regular.ttf')`);
@@ -100,23 +101,39 @@ async function createmyImage(content, fontColor, bgColor) {
             await document.fonts.ready;
 
             ctx.fillStyle = fontColor;
+
+            let maxWidth = canvas.width - 40;
+            let maxWordWidth = 0;
+            const words = content.split(' ');
+            words.forEach(word => {
+                const wordWidth = textWidth(word);
+                if (wordWidth > maxWordWidth) {
+                    maxWordWidth = wordWidth;
+                }
+            });
+            console.log('maxwordwidth', maxWordWidth, 'maxwidth',maxWidth);
+            if (maxWordWidth > maxWidth) {
+                fontSize = Math.floor((maxWidth / maxWordWidth) * initialFontSize);
+            }
+
             ctx.font = `${fontSize}px ${fontFamily}`;
-            const maxWidth = canvas.width - 40;
+            
             let y = fontSize + 5;
-            let words = content.split(' ');
             let line = '';
             for (let i = 0; i < words.length; i++) {
                 let testLine = line + words[i] + ' ';
                 let testWidth = ctx.measureText(testLine).width;
                 if (testWidth > maxWidth && i > 0) {
-                    ctx.fillText(line, 20, y);
+                    let x = (canvas.width - ctx.measureText(line).width) / 2;
+                    ctx.fillText(line, x, y);
                     line = words[i] + ' ';
                     y += fontSize + 10;
                 } else {
                     line = testLine;
                 }
             }
-            ctx.fillText(line, 20, y);
+            let x = (canvas.width - ctx.measureText(line).width) / 2;
+            ctx.fillText(line, x, y);
 
             const imgData = canvas.toDataURL('image/png');
             key = 'hilbertImage';
@@ -130,6 +147,7 @@ async function createmyImage(content, fontColor, bgColor) {
         });
     });
 }
+
 
 function displaySavedImage() {
     const imgData = localStorage.getItem(key);
