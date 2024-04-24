@@ -21,7 +21,7 @@ label {
   font-size: 0.8em;
   font-weight: bold;
 }
-#form-card h3 {
+#form-card h3, #button-card h3 {
   margin-bottom: 10px;
 }
 #font-input{
@@ -29,12 +29,11 @@ label {
   flex-direction: column;
   align-items: center;
 }
-
 input[type="color"],
-input[type="submit"] {
+input[type="submit"],
+#black-button {
   margin-top: 5px;
 }
-
 input[type="color"] {
   appearance: none;
   width: 30px;
@@ -43,13 +42,13 @@ input[type="color"] {
   border-radius: 50%;
   cursor: pointer;
 }
-
-input[type="color"]::-webkit-color-swatch {
+input[type="color"]::-webkit-color-swatch,
+#black-button {
   border: none;
   border-radius: 50%;
 }
-
-input[type="submit"] {
+input[type="submit"],
+#black-button,#dwnld-button {
   background-color: #000000;
   border: none;
   padding: 7px 7px;
@@ -62,8 +61,58 @@ input[type="submit"] {
   border-radius: 2px;
   transition: background-color 0.3s;
   font-family: 'Space Mono', monospace;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+#button-card {
+  position: fixed;
+  top: 50%;
+  right: 150px;
+  transform: translateY(-50%);
+  /* background-color: rgba(211, 211, 211, 0.896); */
+  background-color: rgb(255, 255, 255);
+  padding: 12px 20px;
+  /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
+  z-index: 2;
+  font-family: 'Space Mono', monospace;
+  text-align: center;
+  margin-top: 20px;
+}
+.label-button-card{
+  padding: 5px;
+  margin: 5px;
+}
+#black-button,#dwnld-button {
+  padding: 7px 15px;
+  font-size: 14px;
 }
 #char-count-message{
   font-size: 0.7em;
   font-weight: bold;
+}
+#pdf-popover {
+  position: fixed;
+  top: 50%;
+  right: 50px;
+  transform: translateY(-50%);
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  z-index: 2;
+  overflow-y: auto;
+  max-height: 90vh;
+  width: 500px;
+}
+
+#pdf-popover button {
+  background-color: #000;
+  color: #fff;
+  border: none;
+  padding: 8px 15px;
+  cursor: pointer;
+  border-radius: 2px;
+  font-family: 'Space Mono', monospace;
+  margin-top: 10px;
+}
+.refresh.rotate-icon {
+  transform: rotate(90);
 }

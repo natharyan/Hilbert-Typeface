@@ -71,14 +71,15 @@ function draw() {
     // endShape();
 
     if(counter < path.length){
-      counter += 0.01*order*6.7;
+      // counter += 0.01*order*6.7;
+      counter += 0.08 * order**2
     } else{
       // Reset for next order
-      order++;
-      if (order > 8) {
-        noLoop(); // Stop after order 8
-        return;
-      }
+      order = (order+1)%9;
+      // if (order > 8) {
+      //   noLoop(); // Stop after order 8
+      //   return;
+      // }
       N = Math.floor(Math.pow(2, order));
       total = N*N;
       path = new Array(total);
