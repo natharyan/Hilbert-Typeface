@@ -115,7 +115,7 @@ function draw() {
       }
       
       if (counter < path.length) {
-        counter += 550;
+        counter += 700;
       }
     }
   }
